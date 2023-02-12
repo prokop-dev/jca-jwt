@@ -1,6 +1,9 @@
 package dev.prokop.jwt.jws;
 
 import dev.prokop.jwt.Jwa;
+import dev.prokop.jwt.tools.Json;
+
+import java.security.NoSuchAlgorithmException;
 
 /**
  * For a JWS, the members of the JSON object(s) representing the JOSE
@@ -9,6 +12,17 @@ import dev.prokop.jwt.Jwa;
  * properties of the JWS.
  */
 public class JwsHeader {
+
+    public static JwsHeader parse(Json json) throws NoSuchAlgorithmException {
+        final JwsHeader header = new JwsHeader();
+
+        if (!json.has("alg")) throw new IllegalArgumentException();
+        header.setAlg(Jwa.parse(json.at("alg").asString()));
+
+        if (json.has("kid"))  header.setKid(json.at("kid").asString());
+
+        return header;
+    }
 
     /**
      * The "alg" (algorithm) Header Parameter identifies the cryptographic
@@ -57,5 +71,17 @@ public class JwsHeader {
     public JwsHeader setKid(String kid) {
         this.kid = kid;
         return this;
+    }
+
+    protected Json asJson() {
+        Json json = Json.object();
+        if (kid != null) json.set("kid", kid);
+        if (alg != null) json.set("alg", alg.toString());
+        return json;
+    }
+
+    @Override
+    public String toString() {
+        return asJson().toString();
     }
 }
