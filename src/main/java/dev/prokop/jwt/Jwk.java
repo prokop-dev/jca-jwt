@@ -1,6 +1,7 @@
 package dev.prokop.jwt;
 
-import dev.prokop.jwt.jwk.JwkRSAPublicKey;
+import dev.prokop.jwt.jwk.JwkEcPublicKey;
+import dev.prokop.jwt.jwk.JwkRsaPublicKey;
 import dev.prokop.jwt.tools.Json;
 
 import java.security.Key;
@@ -20,6 +21,7 @@ public interface Jwk extends Key {
      * This member MUST be present in a JWK.
      */
     enum KeyType {RSA, EC}
+    KeyType getKty();
 
     /**
      * "use" (Public Key Use) Parameter
@@ -40,9 +42,6 @@ public interface Jwk extends Key {
      * agreement operations.
      */
     enum PublicKeyUse {sig, enc}
-
-    KeyType getKty();
-
     PublicKeyUse getUse();
     Jwk setUse(PublicKeyUse use);
 
@@ -51,16 +50,20 @@ public interface Jwk extends Key {
 
     static Jwk fromJson(String jsonAsString) {
         final Json json = Json.read(jsonAsString);
+        if (!json.has("kty")) throw new IllegalArgumentException("Provided JSON does not contain kty field.");
 
-        if (json.has("n") && json.has("e")) {
-            return JwkRSAPublicKey.fromJson(json);
+        switch (KeyType.valueOf(json.at("kty").asString())) {
+            case EC:
+                if (json.has("x") && json.has("y")) return JwkEcPublicKey.fromJson(json);
+                break;
+            case RSA:
+                if (json.has("n") && json.has("e")) return JwkRsaPublicKey.fromJson(json);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown kty value - cannot determine key type.");
         }
 
-        if (json.has("x") && json.has("y")) {
-//            return new JwkEcImpl(json);
-        }
-
-        throw new IllegalArgumentException("Cannot determine key type");
+        throw new IllegalArgumentException("Cannot determine key type.");
     }
 
 }
