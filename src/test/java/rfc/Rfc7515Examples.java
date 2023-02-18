@@ -20,4 +20,11 @@ public class Rfc7515Examples {
         System.out.println(jws);
     }
 
+    @Test
+    public void example2() throws Exception {
+        final Jwk jwk = Jwk.fromJson(example("/rfc/rfc7515/example2.jwk"));
+        final Jws jws = Jws.parse(example("/rfc/rfc7515/example2.jws"), id -> jwk);
+        System.out.println(jws);
+    }
+
 }
