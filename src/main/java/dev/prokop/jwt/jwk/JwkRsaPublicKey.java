@@ -11,7 +11,7 @@ import java.security.spec.RSAPublicKeySpec;
 
 import static dev.prokop.jwt.tools.IOUtils.removeHeadZeros;
 
-public final class JwkRSAPublicKey extends JwkBase implements RSAPublicKey {
+public final class JwkRsaPublicKey extends JwkBase implements RSAPublicKey {
 
     @Override
     public KeyType getKty() {
@@ -20,11 +20,11 @@ public final class JwkRSAPublicKey extends JwkBase implements RSAPublicKey {
 
     private final RSAPublicKey rsaPublicKey;
 
-    public JwkRSAPublicKey(RSAPublicKey rsaPublicKey) {
+    public JwkRsaPublicKey(RSAPublicKey rsaPublicKey) {
         this.rsaPublicKey = rsaPublicKey;
     }
 
-    public static JwkRSAPublicKey fromJson(Json json) {
+    public static JwkRsaPublicKey fromJson(Json json) {
         PublicKey publicKey;
 
         final String n = json.at("n").asString();
@@ -41,7 +41,7 @@ public final class JwkRSAPublicKey extends JwkBase implements RSAPublicKey {
             throw new IllegalArgumentException("Can't create a key from provided modulus and exponent", gse);
         }
 
-        JwkRSAPublicKey retVal = new JwkRSAPublicKey((RSAPublicKey) publicKey);
+        JwkRsaPublicKey retVal = new JwkRsaPublicKey((RSAPublicKey) publicKey);
         if (json.has("kid")) retVal.setKid(json.at("kid").asString());
         if (json.has("use")) retVal.setUse(PublicKeyUse.valueOf(json.at("use").asString()));
         return retVal;
