@@ -1,6 +1,7 @@
 package dev.prokop.jwt;
 
 import dev.prokop.jwt.jwk.JwkEcPublicKey;
+import dev.prokop.jwt.jwk.JwkOctSecretKey;
 import dev.prokop.jwt.jwk.JwkRsaPublicKey;
 import dev.prokop.jwt.tools.Json;
 
@@ -9,6 +10,8 @@ import java.security.Key;
 /**
  * JSON Web Key (JWK)
  * https://www.rfc-editor.org/rfc/rfc7517.txt
+ *
+ * Java Interface
  */
 public interface Jwk extends Key {
 
@@ -20,7 +23,7 @@ public interface Jwk extends Key {
      * The "kty" value is a case-sensitive string.
      * This member MUST be present in a JWK.
      */
-    enum KeyType {RSA, EC}
+    enum KeyType {RSA, EC, oct}
     KeyType getKty();
 
     /**
@@ -59,6 +62,8 @@ public interface Jwk extends Key {
             case RSA:
                 if (json.has("n") && json.has("e")) return JwkRsaPublicKey.fromJson(json);
                 break;
+            case oct:
+                return JwkOctSecretKey.fromJson(json);
             default:
                 throw new IllegalArgumentException("Unknown kty value - cannot determine key type.");
         }

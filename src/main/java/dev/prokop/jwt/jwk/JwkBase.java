@@ -34,12 +34,12 @@ public abstract class JwkBase implements Jwk {
     }
 
     @Override
-    public final String getFormat() {
+    public String getFormat() {
         return "JWK";
     }
 
     @Override
-    public final byte[] getEncoded() {
+    public byte[] getEncoded() {
         return asJson().toString().getBytes(StandardCharsets.UTF_8);
     }
 
