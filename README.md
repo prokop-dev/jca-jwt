@@ -23,3 +23,18 @@ This library is written with "zero transitive dependencies" in mind.
 It will not create classpath problems.
 
 ## Sample use
+
+### JWK
+
+To use JWT (signed JWS or encrypted JWE) one must have cryptographic keys.
+Here is where `dev.prokop.jwt.Jwk` interface comes handy.
+
+## Technical notes for myself
+
+Release:
+
+```bash
+mvn clean deploy
+git tag -s v0.0.1 -m 'Maven Central 0.0.1'
+git push --tags
+```

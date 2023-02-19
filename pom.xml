@@ -4,7 +4,7 @@
 
     <groupId>dev.prokop</groupId>
     <artifactId>jca-jwt</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-RC</version>
 
     <name>Java Crypto JWT Library</name>
     <description>JCA compatible minimalistic JWT library</description>
