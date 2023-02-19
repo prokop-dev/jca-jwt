@@ -16,9 +16,29 @@ public class MacCryptoHelper implements JwaCryptoHelper {
     }
 
     @Override
+    public boolean isAlgorithmSuitableForContentDecryption() {
+        return false;
+    }
+
+    @Override
+    public boolean isKeySuitableForKekDecryption(Key keyInstance) {
+        return false;
+    }
+
+    @Override
     public boolean isKeySuitableForVerification(Key keyInstance) {
         if (keyInstance instanceof JwkOctSecretKey) return true;
         return false;
+    }
+
+    @Override
+    public byte[] decrypt(byte[] key, byte[] aad, byte[] iv, byte[] cipherText, byte[] authTag) throws GeneralSecurityException {
+        throw new AssertionError();
+    }
+
+    @Override
+    public byte[] decrypt(Key key, byte[] cipherText) throws GeneralSecurityException {
+        throw new AssertionError();
     }
 
     @Override
