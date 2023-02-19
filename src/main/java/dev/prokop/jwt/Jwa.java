@@ -15,35 +15,35 @@ import java.util.Map;
 public enum Jwa {
 
     // Digital Signature/MAC Algorithm Identifiers
-    HS256(null, "HmacSHA256"),
-    HS384(null, "HmacSHA384"),
-    HS512(null, "HmacSHA512"),
-    RS256(null, "SHA256withRSA"),
-    RS384(null, "SHA384withRSA"),
-    RS512(null, "SHA512withRSA"),
-    ES256(null, "SHA256withECDSA"),
-    ES384(null, "SHA384withECDSA"),
-    ES512(null, "SHA512withECDSA"),
-    PS256(null, "SHA256withRSAandMGF1"),
-    PS384(null, "SHA384withRSAandMGF1"),
-    PS512(null, "SHA512withRSAandMGF1"),
+    HS256(),
+    HS384(),
+    HS512(),
+    RS256(),
+    RS384(),
+    RS512(),
+    ES256(),
+    ES384(),
+    ES512(),
+    PS256(),
+    PS384(),
+    PS512(),
 
     // Key Management Algorithm Identifiers
-    RSA15("RSA1_5", "RSA/ECB/PKCS1Padding"),
-    RSA_OAEP("RSA-OAEP", "RSA/ECB/OAEPWithSHA-1AndMGF1Padding"),
-    RSA_OAEP_256("RSA-OAEP-256", "RSA/ECB/OAEPWithSHA-256AndMGF1Padding"), // & MGF1ParameterSpec.SHA256
-    ECDH_ES("ECDH-ES", "ECDH"),
-    A128KW(null, "AESWrap"),
-    A192KW(null, "AESWrap"),
-    A256KW(null, "AESWrap"),
+    RSA15("RSA1_5"),
+    RSA_OAEP("RSA-OAEP"),
+    RSA_OAEP_256("RSA-OAEP-256"),
+    ECDH_ES("ECDH-ES"),
+    A128KW(),
+    A192KW(),
+    A256KW(),
 
     // Content Encryption Algorithm Identifiers
-    A128CBC_HS256("A128CBC-HS256", "AES/CBC/PKCS5Padding"),
-    A192CBC_HS384("A192CBC-HS384", "AES/CBC/PKCS5Padding"),
-    A256CBC_HS512("A256CBC-HS512", "AES/CBC/PKCS5Padding"),
-    A128GCM(null, "AES/GCM/NoPadding"),
-    A192GCM(null, "AES/GCM/NoPadding"),
-    A256GCM(null, "AES/GCM/NoPadding");
+    A128CBC_HS256("A128CBC-HS256"),
+    A192CBC_HS384("A192CBC-HS384"),
+    A256CBC_HS512("A256CBC-HS512"),
+    A128GCM(),
+    A192GCM(),
+    A256GCM();
 
     private final static Map<String, Jwa> jwaNameToEnum = new HashMap<>();
     static {
@@ -60,12 +60,14 @@ public enum Jwa {
     }
 
     private final String jwaName;
-    private final String jcaName;
     private JwaCryptoHelper cryptoHelper;
 
-    Jwa(String jwaName, final String jcaName) {
+    Jwa() {
+        this(null);
+    }
+
+    Jwa(String jwaName) {
         this.jwaName = jwaName == null ? name() : jwaName;
-        this.jcaName = jcaName;
         this.cryptoHelper = JwaCryptoHelper.resolve(this.jwaName);
     }
 

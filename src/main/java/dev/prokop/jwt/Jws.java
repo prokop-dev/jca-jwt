@@ -23,6 +23,8 @@ public interface Jws {
 
     static Jws parse(String token, KeyProvider keyProvider) throws GeneralSecurityException {
         final List<byte[]> parts = split(token);
+        if (parts.size() != 3)
+            throw new IllegalArgumentException(String.format("Expected three parts separated by dot."));
 
         // First part is JTW header, which is just base64 encoded JSON structure
         final Json header = Json.read(new String(parts.get(0), StandardCharsets.UTF_8));

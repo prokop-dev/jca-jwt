@@ -2,10 +2,12 @@ package dev.prokop.jwt;
 
 import dev.prokop.jwt.jwk.JwkEcPublicKey;
 import dev.prokop.jwt.jwk.JwkOctSecretKey;
+import dev.prokop.jwt.jwk.JwkRsaCrtKey;
 import dev.prokop.jwt.jwk.JwkRsaPublicKey;
 import dev.prokop.jwt.tools.Json;
 
 import java.security.Key;
+import java.security.PublicKey;
 
 /**
  * JSON Web Key (JWK)
@@ -60,6 +62,10 @@ public interface Jwk extends Key {
                 if (json.has("x") && json.has("y")) return JwkEcPublicKey.fromJson(json);
                 break;
             case RSA:
+                if (json.has("n") && json.has("e")
+                        && json.has("d") && json.has("p") && json.has("q")
+                        && json.has("dp") && json.has("dq") && json.has("qi"))
+                    return JwkRsaCrtKey.fromJson(json);
                 if (json.has("n") && json.has("e")) return JwkRsaPublicKey.fromJson(json);
                 break;
             case oct:
@@ -70,5 +76,7 @@ public interface Jwk extends Key {
 
         throw new IllegalArgumentException("Cannot determine key type.");
     }
+
+    PublicKey derivePublicKey();
 
 }
