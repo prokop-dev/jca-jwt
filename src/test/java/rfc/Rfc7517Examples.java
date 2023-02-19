@@ -6,9 +6,6 @@ import dev.prokop.jwt.jwk.JwkKeystore;
 import dev.prokop.jwt.jwk.JwkRsaPublicKey;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.security.Key;
-
 import static org.junit.Assert.*;
 
 public class Rfc7517Examples {
