@@ -50,6 +50,11 @@ public class JwkEcPublicKey extends JwkBase implements ECPublicKey {
     }
 
     @Override
+    public PublicKey derivePublicKey() {
+        return this;
+    }
+
+    @Override
     public KeyType getKty() {
         return KeyType.EC;
     }

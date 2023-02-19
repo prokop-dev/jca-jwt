@@ -64,9 +64,13 @@ public final class JwkRsaPublicKey extends JwkBase implements RSAPublicKey {
 
     protected Json asJson() {
         Json json = super.asJson();
-        json.set("n", ENCODER.encodeToString(removeHeadZeros(rsaPublicKey.getModulus().toByteArray())));
-        json.set("e", ENCODER.encodeToString(removeHeadZeros(rsaPublicKey.getPublicExponent().toByteArray())));
+        json.set("n", ENCODER.encodeToString(removeHeadZeros(getModulus().toByteArray())));
+        json.set("e", ENCODER.encodeToString(removeHeadZeros(getPublicExponent().toByteArray())));
         return json;
     }
 
+    @Override
+    public PublicKey derivePublicKey() {
+        return this;
+    }
 }

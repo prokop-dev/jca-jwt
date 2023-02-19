@@ -58,4 +58,8 @@ public final class JwkOctSecretKey extends JwkBase {
         return json;
     }
 
+    @Override
+    public PublicKey derivePublicKey() {
+        throw new AssertionError();
+    }
 }
