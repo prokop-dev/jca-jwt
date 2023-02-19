@@ -1,8 +1,24 @@
 package dev.prokop.jwt.jwe;
 
 import dev.prokop.jwt.Jwa;
+import dev.prokop.jwt.tools.Json;
+
+import java.security.NoSuchAlgorithmException;
 
 public class JweHeader {
+
+    public static JweHeader parse(Json json) throws NoSuchAlgorithmException {
+        final JweHeader header = new JweHeader();
+
+        if (!json.has("alg")) throw new IllegalArgumentException();
+        header.setAlg(Jwa.parse(json.at("alg").asString()));
+        if (!json.has("enc")) throw new IllegalArgumentException();
+        header.setEnc(Jwa.parse(json.at("enc").asString()));
+
+        if (json.has("kid"))  header.setKid(json.at("kid").asString());
+
+        return header;
+    }
 
     /**
      * This "alg" Header Parameter identifies the cryptographic algorithm used
@@ -96,5 +112,17 @@ public class JweHeader {
     public JweHeader setKid(String kid) {
         this.kid = kid;
         return this;
+    }
+    protected Json asJson() {
+        Json json = Json.object();
+        if (kid != null) json.set("kid", kid);
+        if (alg != null) json.set("alg", alg.toString());
+        if (enc != null) json.set("enc", enc.toString());
+        return json;
+    }
+
+    @Override
+    public String toString() {
+        return asJson().toString();
     }
 }
