@@ -1,7 +1,16 @@
-# Java Compact JWT library
+# Java Compact JWT (JSON Web Token) library
 
-I wrote that library to work with JWT, JTS and JWE structures.
-I wanted to achieve the following:
+Clean room implementation of JWT ecosystem for Java and Android:
+
+- [RFC 7515](http://www.rfc-editor.org/info/rfc7515) - JSON Web Signature (JWS)
+- [RFC 7516](http://www.rfc-editor.org/info/rfc7516) - JSON Web Encryption (JWE)
+- [RFC 7517](http://www.rfc-editor.org/info/rfc7517) - JSON Web Key (JWK)
+- [RFC 7518](http://www.rfc-editor.org/info/rfc7518) - JSON Web Algorithms (JWA)
+- [RFC 7519](http://www.rfc-editor.org/info/rfc7519) - JSON Web Token (JWT)
+- [RFC 7520](http://www.rfc-editor.org/info/rfc7520) - Examples of Protecting Content Using JSON Object Signing and Encryption (JOSE)
+
+I wrote that library to faciliatte work with JWT (JTS and JWE) structures.
+Primary reason was that I was not fully none of the libraries I was able to find and wanted the following features:
 
 - **Maximum compatibility with Java JCA** and standard Java classpath API.
 For example JWK constructed with this library must be JCA class and must be usable with Java crypto.
