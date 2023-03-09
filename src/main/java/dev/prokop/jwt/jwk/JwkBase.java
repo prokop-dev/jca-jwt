@@ -1,5 +1,6 @@
 package dev.prokop.jwt.jwk;
 
+import dev.prokop.jwt.Jwa;
 import dev.prokop.jwt.Jwk;
 import dev.prokop.jwt.tools.Json;
 
@@ -9,6 +10,7 @@ import java.util.Base64;
 public abstract class JwkBase implements Jwk {
 
     private PublicKeyUse use;
+    private Jwa alg;
     private String kid;
 
     @Override
@@ -19,6 +21,17 @@ public abstract class JwkBase implements Jwk {
     @Override
     public Jwk setUse(PublicKeyUse use) {
         this.use = use;
+        return this;
+    }
+
+    @Override
+    public Jwa getAlg() {
+        return alg;
+    }
+
+    @Override
+    public Jwk setAlg(Jwa alg) {
+        this.alg = alg;
         return this;
     }
 
@@ -34,12 +47,12 @@ public abstract class JwkBase implements Jwk {
     }
 
     @Override
-    public String getFormat() {
+    final public String getFormat() {
         return "JWK";
     }
 
     @Override
-    public byte[] getEncoded() {
+    final public byte[] getEncoded() {
         return asJson().toString().getBytes(StandardCharsets.UTF_8);
     }
 

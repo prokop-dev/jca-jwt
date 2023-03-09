@@ -2,7 +2,6 @@ package dev.prokop.jwt;
 
 import dev.prokop.jwt.jwa.JwaCryptoHelper;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,11 +50,11 @@ public enum Jwa {
             jwaNameToEnum.put(jwa.toString(), jwa);
     }
 
-    public static Jwa parse(String jwaAlgo) throws NoSuchAlgorithmException {
+    public static Jwa parse(String jwaAlgo) throws IllegalArgumentException {
         if (jwaNameToEnum.containsKey(jwaAlgo)) {
             return jwaNameToEnum.get(jwaAlgo);
         } else {
-            throw new NoSuchAlgorithmException("Unknown algo name: " + jwaAlgo + ". Should be one from RFC 7518.");
+            throw new IllegalArgumentException("Unknown algo name: " + jwaAlgo + ". Should be one from RFC 7518.");
         }
     }
 

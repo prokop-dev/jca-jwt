@@ -7,6 +7,7 @@ import dev.prokop.jwt.jwk.JwkRsaPublicKey;
 import dev.prokop.jwt.tools.Json;
 
 import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 
 /**
@@ -53,7 +54,10 @@ public interface Jwk extends Key {
     String getKid();
     Jwk setKid(String kid);
 
-    static Jwk fromJson(String jsonAsString) {
+    Jwa getAlg();
+    Jwk setAlg(Jwa jwa);
+
+    static Jwk fromJson(String jsonAsString) throws IllegalArgumentException {
         final Json json = Json.read(jsonAsString);
         if (!json.has("kty")) throw new IllegalArgumentException("Provided JSON does not contain kty field.");
 

@@ -28,7 +28,7 @@ public class Example33 {
     }
 
     @Test
-    public void example1() {
+    public void example33() {
         final Jwk jwk = publicRsaKey();
         assertEquals(Jwk.KeyType.RSA, jwk.getKty());
         assertEquals("bilbo.baggins@hobbiton.example", jwk.getKid());
