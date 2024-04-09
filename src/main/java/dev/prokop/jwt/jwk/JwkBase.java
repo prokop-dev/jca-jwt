@@ -1,54 +1,57 @@
 package dev.prokop.jwt.jwk;
 
-import dev.prokop.jwt.Jwa;
-import dev.prokop.jwt.Jwk;
 import dev.prokop.jwt.tools.Json;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+/**
+ */
 public abstract class JwkBase implements Jwk {
 
-    private PublicKeyUse use;
-    private Jwa alg;
-    private String kid;
+    private final KeyType kty;
+    private final String kid;
+    private PublicKeyUse use = null;
 
-    @Override
-    public PublicKeyUse getUse() {
-        return use;
+    JwkBase(KeyType kty, String kid) {
+        if (kty == null) throw new IllegalArgumentException("kty must not be null");
+        if (kid == null) throw new IllegalArgumentException("kid must not be null");
+        this.kty = kty;
+        this.kid = kid;
     }
 
     @Override
-    public Jwk setUse(PublicKeyUse use) {
-        this.use = use;
-        return this;
+    public final KeyType getKty() {
+        return kty;
     }
 
     @Override
-    public Jwa getAlg() {
-        return alg;
-    }
-
-    @Override
-    public Jwk setAlg(Jwa alg) {
-        this.alg = alg;
-        return this;
-    }
-
-    @Override
-    public String getKid() {
+    public final String getKid() {
         return kid;
     }
 
     @Override
-    public Jwk setKid(String kid) {
-        this.kid = kid;
-        return this;
+    public final PublicKeyUse getUse() {
+        return use;
+    }
+
+    public void setUse(PublicKeyUse use) {
+        this.use = use;
+    }
+
+    protected final static Base64.Encoder B64_URL_ENC = Base64.getUrlEncoder().withoutPadding();
+
+    protected Json asJson() {
+        Json json = Json.object();
+        json.set("kty", getKty().name());
+        json.set("kid", kid);
+        if (use != null) json.set("use", use.toString());
+        return json;
     }
 
     @Override
-    final public String getFormat() {
-        return "JWK";
+    public String getAlgorithm() {
+        return kty.name();
     }
 
     @Override
@@ -57,19 +60,8 @@ public abstract class JwkBase implements Jwk {
     }
 
     @Override
-    public final String toString() {
-        return "JWK(kty=" + getKty() + ",kid=" + getKid() + ")";
+    public final String getFormat() {
+        return "JWK";
     }
-
-    protected Json asJson() {
-        Json json = Json.object();
-        json.set("kty", getKty().name());
-        if (kid != null) json.set("kid", kid);
-        if (use != null) json.set("use", use.toString());
-        return json;
-    }
-
-    protected final static Base64.Decoder DECODER = Base64.getUrlDecoder();
-    protected final static Base64.Encoder ENCODER = Base64.getUrlEncoder().withoutPadding();
 
 }

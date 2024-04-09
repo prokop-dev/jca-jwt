@@ -1,7 +1,7 @@
 package rfc.rfc7520;
 
-import dev.prokop.jwt.Jwk;
-import dev.prokop.jwt.jwk.JwkEcPublicKey;
+//import dev.prokop.jwt.jwk.JwkEcPublicKey;
+import dev.prokop.jwt.jwk.Jwk;
 import dev.prokop.jwt.jwk.JwkKeystore;
 import dev.prokop.jwt.jwk.JwkRsaPublicKey;
 import org.junit.Test;

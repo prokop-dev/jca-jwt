@@ -1,6 +1,5 @@
 package dev.prokop.jwt.jwk;
 
-import dev.prokop.jwt.Jwk;
 import dev.prokop.jwt.KeyProvider;
 import dev.prokop.jwt.tools.Json;
 

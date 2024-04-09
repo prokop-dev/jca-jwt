@@ -57,7 +57,7 @@ public class SymmetricCryptoHelper implements JwaCryptoHelper {
     @Override
     public boolean verify(Key key, final byte[] verifiablePayload, final byte[] signature) throws GeneralSecurityException {
         final Signature signInstance = Signature.getInstance(jcaName);
-        if (key instanceof Jwk) key = ((Jwk) key).derivePublicKey();
+//        if (key instanceof Jwk) key = ((Jwk) key).derivePublicKey();
         signInstance.initVerify((PublicKey) key);
         signInstance.update(verifiablePayload);
         return signInstance.verify(signature);

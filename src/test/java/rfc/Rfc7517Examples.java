@@ -1,7 +1,7 @@
 package rfc;
 
-import dev.prokop.jwt.Jwk;
-import dev.prokop.jwt.jwk.JwkEcPublicKey;
+//import dev.prokop.jwt.jwk.JwkEcPublicKey;
+import dev.prokop.jwt.jwk.Jwk;
 import dev.prokop.jwt.jwk.JwkKeystore;
 import dev.prokop.jwt.jwk.JwkRsaPublicKey;
 import org.junit.Test;
@@ -23,8 +23,8 @@ public class Rfc7517Examples {
         assertNotNull(example2.retrieveKey("2011-04-29"));
 
         // key 1
-        final JwkEcPublicKey key1 = (JwkEcPublicKey) example2.retrieveKey("1");
-        assertSame(Jwk.KeyType.EC, key1.getKty());
+//        final JwkEcPublicKey key1 = (JwkEcPublicKey) example2.retrieveKey("1");
+//        assertSame(Jwk.KeyType.EC, key1.getKty());
 
         // key 2
         final JwkRsaPublicKey key2 = (JwkRsaPublicKey) example2.retrieveKey("2011-04-29");

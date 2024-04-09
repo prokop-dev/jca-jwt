@@ -1,7 +1,7 @@
 package rfc;
 
-import dev.prokop.jwt.Jwk;
 import dev.prokop.jwt.Jws;
+import dev.prokop.jwt.jwk.Jwk;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
